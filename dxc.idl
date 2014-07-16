@@ -1,0 +1,25 @@
+module dxc
+{
+	typedef unsigned long 	pid;
+
+	interface job;
+
+	interface client
+	{
+		job post_job(in wstring command_line, in pid caller, in pid make);
+	};
+
+	interface job
+	{
+		readonly attribute wstring command_line;
+		readonly attribute pid caller;
+		readonly attribute pid make;
+
+		readonly attribute boolean spawned;
+		readonly attribute boolean terminated;
+		readonly attribute long returncode;
+
+		boolean read_out(out wstring msg);
+		boolean read_err(out wstring msg);
+	};
+};
